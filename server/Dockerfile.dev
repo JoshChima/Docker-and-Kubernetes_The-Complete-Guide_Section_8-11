@@ -1,8 +1,9 @@
 FROM node:alpine
+RUN echo "Server up"
 WORKDIR /app
 COPY ./package.json ./
 RUN npm install
-COPY ./ ./
+COPY . .
 CMD [ "npm", "run", "dev" ]
 
 #docker build -f Dockerfile.dev .

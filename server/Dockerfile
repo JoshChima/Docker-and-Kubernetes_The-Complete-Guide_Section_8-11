@@ -1,5 +1,5 @@
 FROM node:alpine
-RUN echo "Client up"
+RUN echo "Server up"
 WORKDIR /app
 COPY ./package.json ./
 RUN npm install
