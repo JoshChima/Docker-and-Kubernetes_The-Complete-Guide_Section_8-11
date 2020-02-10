@@ -21,7 +21,7 @@ after_success:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
     #Take those images and push them to docker hub
-    - docker push -t ikedchima/multi-client
-    - docker push -t ikedchima/multi-nginx
-    - docker push -t ikedchima/multi-server
-    - docker push -t ikedchima/multi-worker
+    - docker push ikedchima/multi-client
+    - docker push ikedchima/multi-nginx
+    - docker push ikedchima/multi-server
+    - docker push ikedchima/multi-worker
