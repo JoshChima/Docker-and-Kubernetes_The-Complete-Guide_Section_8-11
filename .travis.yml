@@ -1,3 +1,4 @@
+language: generic 
 sudo: required
 services:
     - docker
@@ -6,7 +7,7 @@ before_install:
     - docker build -t ikedchima/react-test -f ./client/Dockerfile.dev ./client
 # -- --coverage is used to exit, because npm test does not exit afer the test.
 script:
-    - docker run ikedchima/react-test npm test -- --coverage
+    - docker run -e CI=true ikedchima/react-test npm test
 
 #After test it will build all production versions of the services
 after_success:
