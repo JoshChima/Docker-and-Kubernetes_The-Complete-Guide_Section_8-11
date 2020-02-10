@@ -4,6 +4,22 @@ services:
 
 before_install:
     - docker build -t ikedchima/react-test -f ./client/Dockerfile.dev ./client
-
+# -- --coverage is used to exit, because npm test does not exit afer the test.
 script:
-    You were here!!
+    - docker run ikedchima/react-test npm test -- --coverage
+
+#After test it will build all production versions of the services
+after_success:
+    - docker build -t ikedchima/multi-client ./client
+    - docker build -t ikedchima/multi-nginx ./nginx
+    - docker build -t ikedchima/multi-server ./server
+    - docker build -t ikedchima/multi-worker ./worker
+
+    # Log in to the docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+    #Take those images and push them to docker hub
+    - docker push -t ikedchima/multi-client
+    - docker push -t ikedchima/multi-nginx
+    - docker push -t ikedchima/multi-server
+    - docker push -t ikedchima/multi-worker
